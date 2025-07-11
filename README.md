@@ -10,9 +10,9 @@
 
 
        
-### 用法 MavenCentral
+### 用法 
 
-       implementation 'io.github.happylishang:antifake:1.7.0'
+       自行编译aar
     
 Java代码中：
 
