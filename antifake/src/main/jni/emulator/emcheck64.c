@@ -3,10 +3,11 @@
 #include <unistd.h>
 #include <sys/mman.h>
 #include <android/log.h>
-#include<fcntl.h>
+#include <fcntl.h>
 #include <signal.h>
 #include <assert.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define LOGI(...) __android_log_print(ANDROID_LOG_ERROR,"lishang",__VA_ARGS__)
 #define PROT PROT_EXEC|PROT_WRITE|PROT_READ
@@ -114,7 +115,7 @@ jboolean JNICALL detect(JNIEnv *env, jclass jclass1) {
                       (off_t) 0);
 //    LOGI(" mmap sucess exec  %x  %d ", exec,(size_t) getpagesize());
     if (exec == (void *) -1) {
-        int fd = fopen("/dev/zero", "w+");
+        int fd = open("/dev/zero", O_RDWR);
         exec = mmap(NULL, (size_t) getpagesize(), PROT, MAP_PRIVATE, fd, (off_t) 0);
         if (exec == (void *) -1) {
             return 10;
@@ -129,12 +130,12 @@ jboolean JNICALL detect(JNIEnv *env, jclass jclass1) {
 //    LOGI(" mmap copy  exec  %x", exec);
     //如果不是 (size_t) getpagesize() 是sizeof（code），就必须加上LOGI(" mmap sucess exec  %x", exec); ，才能降低崩溃概率，这尼玛操蛋
     asmcheck = (int *) exec;
-    __clear_cache(exec, exec + 16384);
+    __builtin___clear_cache(exec, exec + 16384);
     a = asmcheck();
 //        LOGI(" ret --  %x", a);
     munmap(exec, 16384);
 
-    return a == 1;
+    return a == 1 ? JNI_TRUE : JNI_FALSE;
 }
 
 

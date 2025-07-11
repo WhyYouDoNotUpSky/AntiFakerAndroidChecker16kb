@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.snail.device"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 31
     }
 

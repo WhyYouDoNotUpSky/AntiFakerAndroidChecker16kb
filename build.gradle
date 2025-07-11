@@ -2,6 +2,7 @@
 buildscript {
     ext {
         agp_version = '8.2.2'
+        agp_version1 = '8.6.0'
     }
     repositories {
         // 添加阿里云镜像
@@ -13,7 +14,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$agp_version"
+        classpath "com.android.tools.build:gradle:$agp_version1"
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.4.30"
     }

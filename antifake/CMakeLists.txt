@@ -48,13 +48,15 @@ find_library( # Sets the name of the path variable.
 target_link_libraries( # Specifies the target library.
             # 制定目标库.
             emulator_check
-            # Links the target library to the log library
+            PRIVATE
+        # Links the target library to the log library
             # included in the NDK.
             ${log-lib} )
 
 target_link_libraries( # Specifies the target library.
         # 制定目标库.
         property_get
+        PRIVATE
         # Links the target library to the log library
         # included in the NDK.
         ${log-lib} )

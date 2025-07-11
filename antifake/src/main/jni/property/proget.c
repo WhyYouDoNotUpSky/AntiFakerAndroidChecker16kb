@@ -66,6 +66,7 @@ static JNINativeMethod methods[] = {
 
 };
 
+__attribute__((aligned(16384))) // 16KB对齐
 jint JNI_OnLoad(JavaVM* vm, void* reserved)
 {
     JNIEnv* env = NULL;
