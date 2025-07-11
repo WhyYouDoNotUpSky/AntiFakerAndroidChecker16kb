@@ -110,7 +110,7 @@ jboolean JNICALL detect(JNIEnv *env, jclass jclass1) {
     ;
 
 //   LOGI(" start  detect");
-    void *exec = mmap(NULL, (size_t) getpagesize(), PROT, MAP_ANONYMOUS | MAP_PRIVATE, -1,
+    void *exec = mmap(NULL, 16384, PROT, MAP_ANONYMOUS | MAP_PRIVATE, -1,
                       (off_t) 0);
 //    LOGI(" mmap sucess exec  %x  %d ", exec,(size_t) getpagesize());
     if (exec == (void *) -1) {
@@ -129,10 +129,10 @@ jboolean JNICALL detect(JNIEnv *env, jclass jclass1) {
 //    LOGI(" mmap copy  exec  %x", exec);
     //如果不是 (size_t) getpagesize() 是sizeof（code），就必须加上LOGI(" mmap sucess exec  %x", exec); ，才能降低崩溃概率，这尼玛操蛋
     asmcheck = (int *) exec;
-    __clear_cache(exec, exec + (size_t) getpagesize());
+    __clear_cache(exec, exec + 16384);
     a = asmcheck();
 //        LOGI(" ret --  %x", a);
-    munmap(exec, getpagesize());
+    munmap(exec, 16384);
 
     return a == 1;
 }
