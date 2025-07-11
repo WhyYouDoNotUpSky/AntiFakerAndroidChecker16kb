@@ -5,6 +5,7 @@
 # Sets the minimum version of CMake required to build the native library.
 #CMakeLists.txt
 cmake_minimum_required(VERSION 3.4.1)
+project(emulator_check)
 
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
@@ -45,21 +46,17 @@ find_library( # Sets the name of the path variable.
 # Specifies libraries CMake should link to your target library. You
 # can link multiple libraries, such as libraries you define in this
 # build script, prebuilt third-party libraries, or system libraries.
-target_link_libraries( # Specifies the target library.
-            # 制定目标库.
-            emulator_check
-            PRIVATE
-        # Links the target library to the log library
-            # included in the NDK.
-            ${log-lib} )
+target_link_libraries(
+    emulator_check
+    PRIVATE
+    ${log-lib}
+    -Wl,-z,max-page-size=0x4000)
 
-target_link_libraries( # Specifies the target library.
-        # 制定目标库.
-        property_get
-        PRIVATE
-        # Links the target library to the log library
-        # included in the NDK.
-        ${log-lib} )
+target_link_libraries(
+    property_get
+    PRIVATE
+    ${log-lib}
+    -Wl,-z,max-page-size=0x4000)
 #
 #target_compile_options ( <lib> PUBLIC -m32 )
 #target_link_libraries ( <target> PRIVATE <lib> )

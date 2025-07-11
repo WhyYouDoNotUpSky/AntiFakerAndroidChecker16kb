@@ -36,7 +36,13 @@ android {
             }
         }
     }
-
+    externalNativeBuild {
+        cmake {
+            // 在该文件种设置所要编写的c源码位置，以及编译后so文件的名字
+            path 'CMakeLists.txt'
+            version "3.22.1"
+        }
+    }
     sourceSets {
         main {
             jniLibs.srcDir 'src/main/libs'
@@ -55,4 +61,3 @@ dependencies {
     api 'androidx.appcompat:appcompat:1.4.1'
     compileOnly project (':telephony')
 }
-
